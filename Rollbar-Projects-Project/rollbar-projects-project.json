@@ -1,0 +1,84 @@
+{
+  "typeName": "Rollbar::Projects::Project",
+  "description": "Manage a project on Rollbar.",
+  "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "definitions": {
+    "RollbarAccess": {
+      "description": "Properties needed to access Rollbar.",
+      "type": "object",
+      "properties": {
+        "Token": {
+          "type": "string",
+          "description": "API token used to access Rollbar."
+        }
+      },
+      "required": [
+        "Token"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "typeConfiguration": {
+    "properties": {
+      "RollbarAccess": {
+        "$ref": "#/definitions/RollbarAccess"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "RollbarAccess"
+    ]
+  },
+  "properties": {
+    "Name": {
+      "description": "Name of the project. Must start with a letter; can contain letters, numbers, spaces, underscores, hyphens, periods, and commas. Max length 32 characters.",
+      "type": "string",
+      "pattern": "^[\\w\\_\\-\\.\\,]{1,32}$"
+    },
+    "Id": {
+      "description": "The project ID.",
+      "type": "integer"
+    },
+    "AccountId": {
+      "description": "The account ID where the project belongs to.",
+      "type": "integer"
+    },
+    "Status": {
+      "description": "Whether or not this project is enabled.",
+      "type": "string",
+      "enum": [
+        "enabled",
+        "disabled"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "tagging": {
+    "taggable": false
+  },
+  "required": [
+    "Name"
+  ],
+  "readOnlyProperties": [
+    "/properties/Id",
+    "/properties/AccountId",
+    "/properties/Status"
+  ],
+  "primaryIdentifier": [
+    "/properties/Id"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": []
+    },
+    "read": {
+      "permissions": []
+    },
+    "delete": {
+      "permissions": []
+    },
+    "list": {
+      "permissions": []
+    }
+  }
+}
