@@ -1,7 +1,7 @@
 {
   "typeName": "Rollbar::Projects::Project",
   "description": "Manage a project on Rollbar.",
-  "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "sourceUrl": "https://docs.rollbar.com/reference/create-a-project",
   "definitions": {
     "RollbarAccess": {
       "description": "Properties needed to access Rollbar.",
@@ -14,6 +14,90 @@
       },
       "required": [
         "Token"
+      ],
+      "additionalProperties": false
+    },
+    "Slack": {
+      "description": "Configuring Slack notifications integration.",
+      "type": "object",
+      "properties": {
+        "Enabled": {
+          "description": "Enable the Slack notifications globally",
+          "type": "boolean"
+        },
+        "ServiceAccountId": {
+          "description": "You can find your Service Account ID in https://rollbar.com/settings/integrations/#slack",
+          "type": "integer"
+        },
+        "Channel": {
+          "description": "The default Slack channel to send the messages",
+          "type": "string"
+        },
+        "ShowMessageButtons": {
+          "description": "Show the Slack actionable buttons",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "Enabled",
+        "ServiceAccountId",
+        "Channel"
+      ],
+      "additionalProperties": false
+    },
+    "Webhook": {
+      "description": "Configuring Webhook notifications integration.",
+      "type": "object",
+      "properties": {
+        "Enabled": {
+          "description": "Enable the webhook notifications globally",
+          "type": "boolean"
+        },
+        "Url": {
+          "description": "The webhook url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Enabled",
+        "Url"
+      ],
+      "additionalProperties": false
+    },
+    "PagerDuty": {
+      "description": "Configuring PagerDuty notifications integration.",
+      "type": "object",
+      "properties": {
+        "Enabled": {
+          "description": "Enable the PagerDuty notifications globally",
+          "type": "boolean"
+        },
+        "ServiceKey": {
+          "description": "PagerDuty Service API Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Enabled",
+        "ServiceKey"
+      ],
+      "additionalProperties": false
+    },
+    "Email": {
+      "description": "Configuring Email notifications integration.",
+      "type": "object",
+      "properties": {
+        "Enabled": {
+          "description": "Enable the Email notifications globally",
+          "type": "boolean"
+        },
+        "IncludeRequestParams": {
+          "description": "Whether to include request parameters",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "Enabled"
       ],
       "additionalProperties": false
     }
@@ -34,6 +118,18 @@
       "description": "Name of the project. Must start with a letter; can contain letters, numbers, spaces, underscores, hyphens, periods, and commas. Max length 32 characters.",
       "type": "string",
       "pattern": "^[\\w\\_\\-\\.\\,]{1,32}$"
+    },
+    "Slack": {
+      "$ref": "#/definitions/Slack"
+    },
+    "Webhook": {
+      "$ref": "#/definitions/Webhook"
+    },
+    "PagerDuty": {
+      "$ref": "#/definitions/PagerDuty"
+    },
+    "Email": {
+      "$ref": "#/definitions/Email"
     },
     "Id": {
       "description": "The project ID.",
@@ -59,6 +155,15 @@
   "required": [
     "Name"
   ],
+  "createOnlyProperties": [
+    "/properties/Name"
+  ],
+  "writeOnlyProperties": [
+    "/properties/Slack",
+    "/properties/Webhook",
+    "/properties/PagerDuty",
+    "/properties/Email"
+  ],
   "readOnlyProperties": [
     "/properties/Id",
     "/properties/AccountId",
@@ -72,6 +177,9 @@
       "permissions": []
     },
     "read": {
+      "permissions": []
+    },
+    "update": {
       "permissions": []
     },
     "delete": {

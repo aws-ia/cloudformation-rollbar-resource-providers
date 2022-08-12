@@ -13,6 +13,10 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Type" : "Rollbar::Projects::Project",
     "Properties" : {
         "<a href="#name" title="Name">Name</a>" : <i>String</i>,
+        "<a href="#slack" title="Slack">Slack</a>" : <i><a href="slack.md">Slack</a></i>,
+        "<a href="#webhook" title="Webhook">Webhook</a>" : <i><a href="webhook.md">Webhook</a></i>,
+        "<a href="#pagerduty" title="PagerDuty">PagerDuty</a>" : <i><a href="pagerduty.md">PagerDuty</a></i>,
+        "<a href="#email" title="Email">Email</a>" : <i><a href="email.md">Email</a></i>,
     }
 }
 </pre>
@@ -23,6 +27,10 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 Type: Rollbar::Projects::Project
 Properties:
     <a href="#name" title="Name">Name</a>: <i>String</i>
+    <a href="#slack" title="Slack">Slack</a>: <i><a href="slack.md">Slack</a></i>
+    <a href="#webhook" title="Webhook">Webhook</a>: <i><a href="webhook.md">Webhook</a></i>
+    <a href="#pagerduty" title="PagerDuty">PagerDuty</a>: <i><a href="pagerduty.md">PagerDuty</a></i>
+    <a href="#email" title="Email">Email</a>: <i><a href="email.md">Email</a></i>
 </pre>
 
 ## Properties
@@ -36,6 +44,46 @@ _Required_: Yes
 _Type_: String
 
 _Pattern_: <code>^[\w\_\-\.\,]{1,32}$</code>
+
+_Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
+
+#### Slack
+
+Configuring Slack notifications integration.
+
+_Required_: No
+
+_Type_: <a href="slack.md">Slack</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Webhook
+
+Configuring Webhook notifications integration.
+
+_Required_: No
+
+_Type_: <a href="webhook.md">Webhook</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### PagerDuty
+
+Configuring PagerDuty notifications integration.
+
+_Required_: No
+
+_Type_: <a href="pagerduty.md">PagerDuty</a>
+
+_Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
+
+#### Email
+
+Configuring Email notifications integration.
+
+_Required_: No
+
+_Type_: <a href="email.md">Email</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
