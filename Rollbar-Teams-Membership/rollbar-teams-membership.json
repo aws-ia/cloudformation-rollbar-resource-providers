@@ -1,0 +1,97 @@
+{
+  "typeName": "Rollbar::Teams::Membership",
+  "description": "Manage a team membership for a user or project on Rollbar.",
+  "sourceUrl": "https://docs.rollbar.com/reference/list-a-teams-users",
+  "definitions": {
+    "RollbarAccess": {
+      "description": "Properties needed to access Rollbar.",
+      "type": "object",
+      "properties": {
+        "Token": {
+          "type": "string",
+          "description": "API token used to access Rollbar"
+        }
+      },
+      "required": [
+        "Token"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "typeConfiguration": {
+    "properties": {
+      "RollbarAccess": {
+        "$ref": "#/definitions/RollbarAccess"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "RollbarAccess"
+    ]
+  },
+  "properties": {
+    "TeamId": {
+      "description": "The team ID for the membership.",
+      "type": "integer"
+    },
+    "Member": {
+      "type": "object",
+      "oneOf": [
+        {
+          "properties": {
+            "UserId": {
+              "description": "The ID of the user to associate to the team. You must specify only one ID.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "UserId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "ProjectId": {
+              "description": "The ID of the project to associate to the team. You must specify only one ID.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "ProjectId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "tagging": {
+    "taggable": false
+  },
+  "required": [
+    "TeamId",
+    "Member"
+  ],
+  "createOnlyProperties": [
+    "/properties/TeamId",
+    "/properties/Member"
+  ],
+  "primaryIdentifier": [
+    "/properties/TeamId",
+    "/properties/Member"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": []
+    },
+    "read": {
+      "permissions": []
+    },
+    "delete": {
+      "permissions": []
+    },
+    "list": {
+      "permissions": []
+    }
+  }
+}
