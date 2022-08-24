@@ -2,7 +2,7 @@
     "artifact_type": "RESOURCE",
     "typeName": "Rollbar::Projects::Project",
     "language": "typescript",
-    "runtime": "nodejs12.x",
+    "runtime": "nodejs14.x",
     "entrypoint": "dist/Rollbar-Projects-Project/src/handlers.entrypoint",
     "testEntrypoint": "dist/Rollbar-Projects-Project/src/handlers.testEntrypoint",
     "settings": {
