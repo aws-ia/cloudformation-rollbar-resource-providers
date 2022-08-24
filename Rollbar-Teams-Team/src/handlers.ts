@@ -3,6 +3,7 @@ import {AbstractRollbarResource} from "../../Rollbar-Common/src/abstract-rollbar
 import {RollbarClient} from "../../Rollbar-Common/src/rollbar-client";
 import {CaseTransformer, Transformer} from "../../Rollbar-Common/src/util";
 import {version} from '../package.json';
+import {exceptions} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
 
 type Team = {
     id: number
@@ -42,8 +43,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Team, Team, void, 
     }
 
     async update(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<void> {
-        // TODO: Check if we can update
-        // await this.setProjectConfiguration(model, model.id.toString(), typeConfiguration);
+        throw new exceptions.NotUpdatable();
     }
 
     async delete(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<void> {
