@@ -13,7 +13,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Type" : "Rollbar::Teams::Membership",
     "Properties" : {
         "<a href="#teamid" title="TeamId">TeamId</a>" : <i>Integer</i>,
-        "<a href="#member" title="Member">Member</a>" : <i><a href="member.md">Member</a></i>
+        "<a href="#memberid" title="MemberId">MemberId</a>" : <i>Integer</i>,
+        "<a href="#membertype" title="MemberType">MemberType</a>" : <i>String</i>
     }
 }
 </pre>
@@ -24,7 +25,8 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 Type: Rollbar::Teams::Membership
 Properties:
     <a href="#teamid" title="TeamId">TeamId</a>: <i>Integer</i>
-    <a href="#member" title="Member">Member</a>: <i><a href="member.md">Member</a></i>
+    <a href="#memberid" title="MemberId">MemberId</a>: <i>Integer</i>
+    <a href="#membertype" title="MemberType">MemberType</a>: <i>String</i>
 </pre>
 
 ## Properties
@@ -39,11 +41,25 @@ _Type_: Integer
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
-#### Member
+#### MemberId
+
+The ID of the user or project to associate to the team.
 
 _Required_: Yes
 
-_Type_: <a href="member.md">Member</a>
+_Type_: Integer
+
+_Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
+
+#### MemberType
+
+The type of membership
+
+_Required_: Yes
+
+_Type_: String
+
+_Allowed Values_: <code>user</code> | <code>project</code>
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 

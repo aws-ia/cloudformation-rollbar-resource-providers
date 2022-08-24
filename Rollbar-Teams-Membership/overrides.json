@@ -1,8 +1,7 @@
 {
   "CREATE": {
     "/TeamId": 942450,
-    "/Member": {
-      "ProjectId": 581379
-    }
+    "/MemberId": 581379,
+    "/MemberType": "project"
   }
 }

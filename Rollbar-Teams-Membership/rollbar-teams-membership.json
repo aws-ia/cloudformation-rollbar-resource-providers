@@ -34,33 +34,16 @@
       "description": "The team ID for the membership.",
       "type": "integer"
     },
-    "Member": {
-      "type": "object",
-      "oneOf": [
-        {
-          "properties": {
-            "UserId": {
-              "description": "The ID of the user to associate to the team. You must specify only one ID.",
-              "type": "integer"
-            }
-          },
-          "required": [
-            "UserId"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "properties": {
-            "ProjectId": {
-              "description": "The ID of the project to associate to the team. You must specify only one ID.",
-              "type": "integer"
-            }
-          },
-          "required": [
-            "ProjectId"
-          ],
-          "additionalProperties": false
-        }
+    "MemberId": {
+      "description": "The ID of the user or project to associate to the team.",
+      "type": "integer"
+    },
+    "MemberType": {
+      "description": "The type of membership",
+      "type": "string",
+      "enum": [
+        "user",
+        "project"
       ]
     }
   },
@@ -70,15 +53,18 @@
   },
   "required": [
     "TeamId",
-    "Member"
+    "MemberId",
+    "MemberType"
   ],
   "createOnlyProperties": [
     "/properties/TeamId",
-    "/properties/Member"
+    "/properties/MemberId",
+    "/properties/MemberType"
   ],
   "primaryIdentifier": [
     "/properties/TeamId",
-    "/properties/Member"
+    "/properties/MemberId",
+    "/properties/MemberType"
   ],
   "handlers": {
     "create": {

@@ -11,7 +11,9 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     protected readonly IDENTIFIER_KEY_TEAMID: string = '/properties/TeamId';
     @Exclude()
-    protected readonly IDENTIFIER_KEY_MEMBER: string = '/properties/Member';
+    protected readonly IDENTIFIER_KEY_MEMBERID: string = '/properties/MemberId';
+    @Exclude()
+    protected readonly IDENTIFIER_KEY_MEMBERTYPE: string = '/properties/MemberType';
 
     @Expose({ name: 'TeamId' })
     @Transform(
@@ -22,9 +24,24 @@ export class ResourceModel extends BaseModel {
         }
     )
     teamId?: Optional<integer>;
-    @Expose({ name: 'Member' })
-    @Type(() => Member)
-    member?: Optional<Member>;
+    @Expose({ name: 'MemberId' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Integer, 'memberId', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    memberId?: Optional<integer>;
+    @Expose({ name: 'MemberType' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'memberType', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    memberType?: Optional<string>;
 
     @Exclude()
     public getPrimaryIdentifier(): Dict {
@@ -33,12 +50,16 @@ export class ResourceModel extends BaseModel {
             identifier[this.IDENTIFIER_KEY_TEAMID] = this.teamId;
         }
 
-        if (this.member != null) {
-            identifier[this.IDENTIFIER_KEY_MEMBER] = this.member;
+        if (this.memberId != null) {
+            identifier[this.IDENTIFIER_KEY_MEMBERID] = this.memberId;
+        }
+
+        if (this.memberType != null) {
+            identifier[this.IDENTIFIER_KEY_MEMBERTYPE] = this.memberType;
         }
 
         // only return the identifier if it can be used, i.e. if all components are present
-        return Object.keys(identifier).length === 2 ? identifier : null;
+        return Object.keys(identifier).length === 3 ? identifier : null;
     }
 
     @Exclude()
@@ -47,31 +68,6 @@ export class ResourceModel extends BaseModel {
         // only return the identifiers if any can be used
         return identifiers.length === 0 ? null : identifiers;
     }
-}
-
-export class Member extends BaseModel {
-    ['constructor']: typeof Member;
-
-
-    @Expose({ name: 'UserId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Integer, 'userId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    userId?: Optional<integer>;
-    @Expose({ name: 'ProjectId' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(Integer, 'projectId', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    projectId?: Optional<integer>;
-
 }
 
 export class TypeConfigurationModel extends BaseModel {

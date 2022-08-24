@@ -34,7 +34,7 @@ export abstract class AbstractRollbarResource<ResourceModelType extends BaseMode
             case 429:
                 throw new exceptions.ServiceLimitExceeded(errorMessage);
             default:
-                throw new exceptions.InternalFailure(`Unexpected error occurred, see serialized exception below:\n${JSON.stringify(e)}`);
+                throw new exceptions.InternalFailure(`Unexpected error occurred, see serialized exception below:\n${errorMessage}`);
         }
     }
 

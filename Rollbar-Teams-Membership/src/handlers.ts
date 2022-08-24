@@ -18,7 +18,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Membership, Member
     async get(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Membership> {
         const response = await new RollbarClient(typeConfiguration.rollbarAccess.token, this.userAgent).doRequest<{ result: Membership }>(
             'get',
-            this.getUrl(model));
+            `/api/1/team/${model.teamId}/${model.memberType}/${model.memberId}`);
 
         return response.data.result;
     }
@@ -26,21 +26,19 @@ class Resource extends AbstractRollbarResource<ResourceModel, Membership, Member
     async list(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<ResourceModel[]> {
         const response = await new RollbarClient(typeConfiguration.rollbarAccess.token, this.userAgent).doRequest<{ result: Membership[] }>(
             'get',
-            `/api/1/team/${model.teamId}/${this.getMode(model)}s`);
+            `/api/1/team/${model.teamId}/${model.memberType}s`);
 
         return response.data.result.map(membership => this.setModelFrom(new ResourceModel({
             teamId: membership.team_id,
-            member: {
-                userId: membership.user_id,
-                projectId: membership.project_id
-            }
+            memberId: model.memberType === 'user' ? membership.user_id : membership.project_id,
+            memberType: model.memberType
         }), membership));
     }
 
     async create(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Membership> {
         const response = await new RollbarClient(typeConfiguration.rollbarAccess.token, this.userAgent).doRequest<{ result: Membership }>(
             'put',
-            this.getUrl(model));
+            `/api/1/team/${model.teamId}/${model.memberType}/${model.memberId}`);
 
         return response.data.result;
     }
@@ -52,7 +50,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Membership, Member
     async delete(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<void> {
         await new RollbarClient(typeConfiguration.rollbarAccess.token, this.userAgent).doRequest(
             'delete',
-            this.getUrl(model));
+            `/api/1/team/${model.teamId}/${model.memberType}/${model.memberId}`);
     }
 
     newModel(partial: any): ResourceModel {
@@ -63,25 +61,6 @@ class Resource extends AbstractRollbarResource<ResourceModel, Membership, Member
         return model;
     }
 
-    private getMode(model: ResourceModel) {
-        if (model.member?.userId) {
-            return 'user';
-        }
-        if (model.member.projectId) {
-            return 'project';
-        }
-        throw new Error('Membership not supported');
-    }
-
-    private getUrl(model: ResourceModel) {
-        if (model.member?.userId) {
-            return `/api/1/team/${model.teamId}/user/${model.member.userId}`
-        }
-        if (model.member?.projectId) {
-            return `/api/1/team/${model.teamId}/project/${model.member.projectId}`
-        }
-        throw new Error('Membership not supported');
-    }
 }
 
 export const resource = new Resource(ResourceModel.TYPE_NAME, ResourceModel, null, null, TypeConfigurationModel);
