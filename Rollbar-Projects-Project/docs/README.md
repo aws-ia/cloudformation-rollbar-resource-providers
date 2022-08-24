@@ -43,7 +43,7 @@ _Required_: Yes
 
 _Type_: String
 
-_Pattern_: <code>^[\w\_\-\.\,]{1,32}$</code>
+_Pattern_: <code>^[a-zA-Z][\w\_\-\.\,]{0,31}$</code>
 
 _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 

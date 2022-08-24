@@ -52,7 +52,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Project, Project, 
             await this.delete(new ResourceModel({
                 id: response.data.result.id
             }), typeConfiguration);
-            throw new Error(`Fail to configure channel notifications for the project.\nSerialized API response: ${(e as AxiosError<ApiError>).response.data}`);
+            throw new Error(`Fail to configure channel notifications for the project.\nSerialized API response: ${JSON.stringify((e as AxiosError<ApiError>).response.data)}`);
         }
 
         return response.data.result;

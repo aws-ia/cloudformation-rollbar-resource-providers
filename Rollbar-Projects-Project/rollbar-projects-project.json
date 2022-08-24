@@ -117,7 +117,7 @@
     "Name": {
       "description": "Name of the project. Must start with a letter; can contain letters, numbers, spaces, underscores, hyphens, periods, and commas. Max length 32 characters.",
       "type": "string",
-      "pattern": "^[\\w\\_\\-\\.\\,]{1,32}$"
+      "pattern": "^[a-zA-Z][\\w\\_\\-\\.\\,]{0,31}$"
     },
     "Slack": {
       "$ref": "#/definitions/Slack"
