@@ -2,7 +2,7 @@
     "artifact_type": "RESOURCE",
     "typeName": "Rollbar::Projects::AccessToken",
     "language": "typescript",
-    "runtime": "nodejs12.x",
+    "runtime": "nodejs14.x",
     "entrypoint": "dist/Rollbar-Projects-AccessToken/src/handlers.entrypoint",
     "testEntrypoint": "dist/Rollbar-Projects-AccessToken/src/handlers.testEntrypoint",
     "settings": {
