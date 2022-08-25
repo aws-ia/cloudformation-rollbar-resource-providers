@@ -14,7 +14,7 @@ To declare this entity in your AWS CloudFormation template, use the following sy
     "Properties" : {
         "<a href="#projectaccesstoken" title="ProjectAccessToken">ProjectAccessToken</a>" : <i>String</i>,
         "<a href="#slack" title="Slack">Slack</a>" : <i><a href="slackrule.md">SlackRule</a></i>,
-        "<a href="#pagerduty" title="PagerDuty">PagerDuty</a>" : <i><a href="emailrule.md">EmailRule</a></i>,
+        "<a href="#pagerduty" title="PagerDuty">PagerDuty</a>" : <i><a href="pagerdutyrule.md">PagerDutyRule</a></i>,
         "<a href="#email" title="Email">Email</a>" : <i><a href="emailrule.md">EmailRule</a></i>,
         "<a href="#webhook" title="Webhook">Webhook</a>" : <i><a href="webhookrule.md">WebhookRule</a></i>,
     }
@@ -28,7 +28,7 @@ Type: Rollbar::Notifications::Rule
 Properties:
     <a href="#projectaccesstoken" title="ProjectAccessToken">ProjectAccessToken</a>: <i>String</i>
     <a href="#slack" title="Slack">Slack</a>: <i><a href="slackrule.md">SlackRule</a></i>
-    <a href="#pagerduty" title="PagerDuty">PagerDuty</a>: <i><a href="emailrule.md">EmailRule</a></i>
+    <a href="#pagerduty" title="PagerDuty">PagerDuty</a>: <i><a href="pagerdutyrule.md">PagerDutyRule</a></i>
     <a href="#email" title="Email">Email</a>: <i><a href="emailrule.md">EmailRule</a></i>
     <a href="#webhook" title="Webhook">Webhook</a>: <i><a href="webhookrule.md">WebhookRule</a></i>
 </pre>
@@ -57,15 +57,17 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 #### PagerDuty
 
-Create Email notification rules
+Create PagerDuty notification rules
 
 _Required_: No
 
-_Type_: <a href="emailrule.md">EmailRule</a>
+_Type_: <a href="pagerdutyrule.md">PagerDutyRule</a>
 
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### Email
+
+Create Email notification rules
 
 _Required_: No
 
@@ -98,6 +100,14 @@ For more information about using the `Fn::GetAtt` intrinsic function, see [Fn::G
 #### Id
 
 The rule ID
+
+#### Trigger
+
+The trigger associated with this rule
+
+#### Action
+
+The action associated with this rule
 
 #### RuleType
 

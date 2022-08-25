@@ -573,7 +573,7 @@
           "const": "send_message"
         },
         "Config": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/ActionableConfig"
             },
@@ -628,7 +628,7 @@
           "const": "trigger_incident"
         },
         "Config": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/EmailConfig"
             },
@@ -676,7 +676,7 @@
       "$ref": "#/definitions/SlackRule"
     },
     "PagerDuty": {
-      "$ref": "#/definitions/EmailRule"
+      "$ref": "#/definitions/PagerDutyRule"
     },
     "Email": {
       "$ref": "#/definitions/EmailRule"
@@ -686,6 +686,14 @@
     },
     "Id": {
       "description": "The rule ID",
+      "type": "number"
+    },
+    "Trigger": {
+      "description": "The trigger associated with this rule",
+      "type": "string"
+    },
+    "Action": {
+      "description": "The action associated with this rule",
       "type": "string"
     },
     "RuleType": {
@@ -702,6 +710,8 @@
   ],
   "readOnlyProperties": [
     "/properties/Id",
+    "/properties/Trigger",
+    "/properties/Action",
     "/properties/RuleType"
   ],
   "primaryIdentifier": [

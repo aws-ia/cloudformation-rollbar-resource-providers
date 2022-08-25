@@ -8,6 +8,7 @@ import {exceptions} from "@amazon-web-services-cloudformation/cloudformation-cli
 type Rule = {
     id: number
     trigger: string
+    action: string
     filters: []
 }
 
@@ -74,7 +75,9 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
 
         return new ResourceModel({
             ...model,
-            id: from.id.toString(),
+            id: from.id,
+            trigger: from.trigger,
+            action: from.action,
             ruleType
         });
     }

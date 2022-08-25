@@ -26,8 +26,8 @@ export class ResourceModel extends BaseModel {
     @Type(() => SlackRule)
     slack?: Optional<SlackRule>;
     @Expose({ name: 'PagerDuty' })
-    @Type(() => EmailRule)
-    pagerDuty?: Optional<EmailRule>;
+    @Type(() => PagerDutyRule)
+    pagerDuty?: Optional<PagerDutyRule>;
     @Expose({ name: 'Email' })
     @Type(() => EmailRule)
     email?: Optional<EmailRule>;
@@ -37,12 +37,30 @@ export class ResourceModel extends BaseModel {
     @Expose({ name: 'Id' })
     @Transform(
         (value: any, obj: any) =>
-            transformValue(String, 'id', value, obj, []),
+            transformValue(Number, 'id', value, obj, []),
         {
             toClassOnly: true,
         }
     )
-    id?: Optional<string>;
+    id?: Optional<number>;
+    @Expose({ name: 'Trigger' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'trigger', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    trigger?: Optional<string>;
+    @Expose({ name: 'Action' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'action', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    action?: Optional<string>;
     @Expose({ name: 'RuleType' })
     @Transform(
         (value: any, obj: any) =>
@@ -577,6 +595,59 @@ export class NonActionableConfig extends BaseModel {
         }
     )
     channel?: Optional<string>;
+
+}
+
+export class PagerDutyRule extends BaseModel {
+    ['constructor']: typeof PagerDutyRule;
+
+
+    @Expose({ name: 'Trigger' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'trigger', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    trigger?: Optional<string>;
+    @Expose({ name: 'Filters' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(Object, 'filters', value, obj, [Set]),
+        {
+            toClassOnly: true,
+        }
+    )
+    filters?: Optional<Set<object>>;
+    @Expose({ name: 'Action' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'action', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    action?: Optional<string>;
+    @Expose({ name: 'Config' })
+    @Type(() => PagerDutyConfig)
+    config?: Optional<PagerDutyConfig>;
+
+}
+
+export class PagerDutyConfig extends BaseModel {
+    ['constructor']: typeof PagerDutyConfig;
+
+
+    @Expose({ name: 'ServiceKey' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'serviceKey', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    serviceKey?: Optional<string>;
 
 }
 
