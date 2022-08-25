@@ -2,7 +2,7 @@
     "artifact_type": "RESOURCE",
     "typeName": "Rollbar::Notifications::Rule",
     "language": "typescript",
-    "runtime": "nodejs12.x",
+    "runtime": "nodejs14.x",
     "entrypoint": "dist/Rollbar-Notifications-Rule/src/handlers.entrypoint",
     "testEntrypoint": "dist/Rollbar-Notifications-Rule/src/handlers.testEntrypoint",
     "settings": {
