@@ -28,9 +28,9 @@ export class RollbarClient {
             method: method,
             data: body,
             headers: {
-                ...headers,
                 'X-Rollbar-Access-Token': this.apiToken,
-                'User-Agent': this.userAgent || "AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource"
+                'User-Agent': this.userAgent || 'AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation custom resource',
+                ...headers
             }
         });
     }
