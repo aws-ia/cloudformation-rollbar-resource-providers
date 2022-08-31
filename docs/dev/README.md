@@ -26,8 +26,10 @@ Executing this in the console from the project root will add it. Replace the val
 cat << EOF >> .git/config
 [filter "rollbar"]
 clean = sed \
-        -e 's:[existingRollbarProjectId]:<ROLLBAR_PROJECT_ID>:g'
+        -e 's:[existingRollbarProjectId]:<ROLLBAR_PROJECT_ID>:g' \
+        -e 's:[existingRollbarProjectToken]:<ROLLBAR_PROJECT_TOKEN>:g'
 smudge = sed \
-        -e 's:<ROLLBAR_PROJECT_ID>:[existingRollbarProjectId]:g'
+        -e 's:<ROLLBAR_PROJECT_ID>:[existingRollbarProjectId]:g' \
+        -e 's:<ROLLBAR_PROJECT_TOKEN>:[existingRollbarProjectToken]:g'
 EOF
 ```
