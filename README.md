@@ -1,6 +1,6 @@
 # Rollbar CloudFormation Resources
 
-This collection of CloudFormation resource types allow Dynatrace to be controlled using AWS CloudFormation.
+This collection of CloudFormation resource types allow Rollbar to be controlled using AWS CloudFormation.
 
 See the [end-user documentation](docs/user/generated) including:
 
