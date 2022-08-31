@@ -1,0 +1,24 @@
+{
+  "CREATE": {
+    "/Name": "ContractTestProject",
+    "/Slack": null,
+    "/Webhook": null,
+    "/PagerDuty": null,
+    "/Email": {
+      "Enabled": true,
+      "IncludeRequestParams": false
+    }
+  },
+  "UPDATE": {
+    "/Slack": null,
+    "/Webhook": null,
+    "/PagerDuty": {
+      "Enabled": true,
+      "ServiceKey": "yckkfseezrrkpvdefmkxuxwzrqxnrmsm"
+    },
+    "/Email": {
+      "Enabled": true,
+      "IncludeRequestParams": true
+    }
+  }
+}
