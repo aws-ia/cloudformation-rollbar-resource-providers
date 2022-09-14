@@ -3,7 +3,7 @@ import {AbstractRollbarResource} from "../../Rollbar-Common/src/abstract-rollbar
 import {ApiError, RollbarClient} from "../../Rollbar-Common/src/rollbar-client";
 import {CaseTransformer, Transformer} from "../../Rollbar-Common/src/util";
 import {version} from '../package.json';
-import {BaseModel} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
+import {BaseModel, exceptions} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
 import {AxiosError} from "axios";
 
 type Project = {
@@ -74,6 +74,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Project, Project, 
 
     setModelFrom(model: ResourceModel, from?: Project): ResourceModel {
         if (!from) {
+            this.validateModel(model);
             return model;
         }
 
@@ -81,7 +82,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Project, Project, 
         delete from.date_created;
         delete from.date_modified;
 
-        return new ResourceModel({
+        const resourceModel = new ResourceModel({
             id: model.id,
             name: model.name,
             accountId: model.accountId,
@@ -91,6 +92,15 @@ class Resource extends AbstractRollbarResource<ResourceModel, Project, Project, 
                 .forModelIngestion()
                 .transform()
         });
+        this.validateModel(resourceModel);
+
+        return resourceModel;
+    }
+
+    private validateModel(model: ResourceModel): void {
+        if (!model.getPrimaryIdentifier()) {
+            throw new exceptions.ServiceInternalError(`Rollbar API returned a success status but not expected primary identifier. The resource probably exists and would require a manual check and delete. Please try again as the error might be intermittent.`);
+        }
     }
 
     // To configure notifications channels, we need a project access token. When at least one configuration need to be

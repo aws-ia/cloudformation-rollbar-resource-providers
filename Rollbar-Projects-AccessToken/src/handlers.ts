@@ -4,6 +4,7 @@ import {RollbarClient} from "../../Rollbar-Common/src/rollbar-client";
 import {CaseTransformer, Transformer} from "../../Rollbar-Common/src/util";
 import {AxiosError} from "axios";
 import {version} from '../package.json';
+import {exceptions} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
 
 type ProjectAccessToken = {
     access_token: string
@@ -76,6 +77,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, ProjectAccessToken
 
     setModelFrom(model: ResourceModel, from?: ProjectAccessToken): ResourceModel {
         if (!from) {
+            this.validateModel(model);
             return model;
         }
 
@@ -84,13 +86,22 @@ class Resource extends AbstractRollbarResource<ResourceModel, ProjectAccessToken
         delete from.date_created;
         delete from.date_modified;
 
-        return new ResourceModel({
+        const resourceModel = new ResourceModel({
             ...model,
             ...Transformer.for(from)
                 .transformKeys(CaseTransformer.SNAKE_TO_CAMEL)
                 .forModelIngestion()
                 .transform()
         });
+        this.validateModel(resourceModel);
+
+        return resourceModel;
+    }
+
+    private validateModel(model: ResourceModel): void {
+        if (!model.getPrimaryIdentifier()) {
+            throw new exceptions.ServiceInternalError(`Rollbar API returned a success status but not expected primary identifier. The resource probably exists and would require a manual check and delete. Please try again as the error might be intermittent.`);
+        }
     }
 
 }
