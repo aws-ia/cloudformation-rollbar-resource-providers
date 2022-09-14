@@ -58,7 +58,14 @@ class Resource extends AbstractRollbarResource<ResourceModel, Membership, Member
     }
 
     setModelFrom(model: ResourceModel, from?: Membership): ResourceModel {
+        this.validateModel(model);
         return model;
+    }
+
+    private validateModel(model: ResourceModel): void {
+        if (!model.getPrimaryIdentifier()) {
+            throw new exceptions.ServiceInternalError(`Rollbar API returned a success status but not expected primary identifier. The resource probably exists and would require a manual check and delete. Please try again as the error might be intermittent.`);
+        }
     }
 
 }

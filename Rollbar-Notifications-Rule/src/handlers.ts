@@ -63,6 +63,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
 
     setModelFrom(model: ResourceModel, from?: Rule): ResourceModel {
         if (!from) {
+            this.validateModel(model);
             return model;
         }
 
@@ -73,13 +74,22 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
             ruleType = model.ruleType;
         }
 
-        return new ResourceModel({
+        const resourceModel = new ResourceModel({
             ...model,
             id: from.id,
             trigger: from.trigger,
             action: from.action,
             ruleType
         });
+        this.validateModel(resourceModel);
+
+        return resourceModel;
+    }
+
+    private validateModel(model: ResourceModel): void {
+        if (!model.getPrimaryIdentifier()) {
+            throw new exceptions.ServiceInternalError(`Rollbar API returned a success status but not expected primary identifier. The resource probably exists and would require a manual check and delete. Please try again as the error might be intermittent.`);
+        }
     }
 
     private assertModel(model: ResourceModel) {
