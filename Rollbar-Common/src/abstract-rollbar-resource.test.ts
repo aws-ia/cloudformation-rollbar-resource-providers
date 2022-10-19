@@ -74,7 +74,7 @@ describe('AbstractRollbarResource', () => {
                 if (e instanceof NotFound) {
                     expect(e.message).not.toContain(error);
                 } else if (e instanceof InternalFailure) {
-                    expect(e.message).toContain(`Unexpected error occurred, see serialized exception below:\n${JSON.stringify(axiosError)}`);
+                    expect(e.message).toContain(`Unexpected error occurred, see serialized exception below:\n${error}`);
                 } else {
                     expect(e.message).toContain(error);
                 }
