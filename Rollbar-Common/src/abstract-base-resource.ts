@@ -11,7 +11,7 @@ import {
     ResourceHandlerRequest,
     SessionProxy
 } from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
-    import {NotFound} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib/dist/exceptions";
+import {NotFound} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib/dist/exceptions";
 
 export interface RetryableCallbackContext {
     retry?: number
@@ -124,11 +124,17 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
             try {
                 let data = await this.create(model, typeConfiguration);
                 model = this.setModelFrom(model, data);
-                return ProgressEvent.progress<ProgressEvent<ResourceModelType, RetryableCallbackContext>>(model, {
-                    retry: 1
-                });
+                const retry = 1;
+                const maxDelay = Math.pow(2, retry) * Math.random();
+                return ProgressEvent.builder<ProgressEvent<ResourceModelType, RetryableCallbackContext>>()
+                    .status(OperationStatus.InProgress)
+                    .resourceModel(model)
+                    .callbackContext({
+                        retry: retry
+                    })
+                    .callbackDelaySeconds(maxDelay * Math.random())
+                    .build();
             } catch (e) {
-                logger.log(`Error ${e}`);
                 this.processRequestException(e, request);
             }
         }
@@ -144,9 +150,15 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
             } catch (e) {
                 if (e instanceof NotFound) {
                     if (callbackContext.retry <= this.maxRetries) {
-                        return ProgressEvent.progress<ProgressEvent<ResourceModelType, RetryableCallbackContext>>(model, {
-                            retry: callbackContext.retry + 1
-                        });
+                        const maxDelay = Math.pow(2, callbackContext.retry) * Math.random();
+                        return ProgressEvent.builder<ProgressEvent<ResourceModelType, RetryableCallbackContext>>()
+                            .status(OperationStatus.InProgress)
+                            .resourceModel(model)
+                            .callbackContext({
+                                retry: callbackContext.retry + 1
+                            })
+                            .callbackDelaySeconds(maxDelay * Math.random())
+                            .build();
                     } else {
                         throw new exceptions.NotStabilized(`Resource failed to stabilized after ${this.maxRetries} retries`);
                     }
@@ -186,7 +198,6 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
             const data = await this.get(model, typeConfiguration);
             model = this.setModelFrom(model, data);
         } catch (e) {
-            logger.log(`Error ${e}`);
             this.processRequestException(e, request);
         }
 
@@ -221,12 +232,18 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
             }
 
             try {
-                await this.delete(model, typeConfiguration)
-                return ProgressEvent.progress<ProgressEvent<ResourceModelType, RetryableCallbackContext>>(model, {
-                    retry: 1
-                });
+                await this.delete(model, typeConfiguration);
+                const retry = 1;
+                const maxDelay = Math.pow(2, retry) * Math.random();
+                return ProgressEvent.builder<ProgressEvent<ResourceModelType, RetryableCallbackContext>>()
+                    .status(OperationStatus.InProgress)
+                    .resourceModel(model)
+                    .callbackContext({
+                        retry: retry
+                    })
+                    .callbackDelaySeconds(maxDelay * Math.random())
+                    .build();
             } catch (e) {
-                logger.log(`Error ${e}`);
                 this.processRequestException(e, request);
             }
         }
@@ -245,9 +262,15 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
         }
 
         if (callbackContext.retry <= this.maxRetries) {
-            return ProgressEvent.progress<ProgressEvent<ResourceModelType, RetryableCallbackContext>>(model, {
-                retry: callbackContext.retry + 1
-            });
+            const maxDelay = Math.pow(2, callbackContext.retry) * Math.random();
+            return ProgressEvent.builder<ProgressEvent<ResourceModelType, RetryableCallbackContext>>()
+                .status(OperationStatus.InProgress)
+                .resourceModel(model)
+                .callbackContext({
+                    retry: callbackContext.retry + 1
+                })
+                .callbackDelaySeconds(maxDelay * Math.random())
+                .build();
         } else {
             throw new exceptions.NotStabilized(`Resource failed to stabilized after ${this.maxRetries} retries`);
         }
@@ -278,7 +301,6 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
             const location = await this.get(model, typeConfiguration);
             model = this.setModelFrom(model, location);
         } catch (e) {
-            logger.log(`Error ${e}`);
             this.processRequestException(e, request);
         }
 
@@ -314,7 +336,6 @@ export abstract class AbstractBaseResource<ResourceModelType extends BaseModel, 
                 .resourceModels(data)
                 .build();
         } catch (e) {
-            logger.log(`Error ${e}`);
             this.processRequestException(e, request);
         }
     }

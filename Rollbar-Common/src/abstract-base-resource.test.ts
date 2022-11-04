@@ -98,24 +98,27 @@ describe('AbstractBaseResource', () => {
             retries: number
         ) {
             initialSetup();
-            let firstProgressEvent = await handleFunctionName(session, request, {}, logger,typeConfiguration);
+            let firstProgressEvent = await handleFunctionName(session, request, {}, logger, typeConfiguration);
             expect(firstProgressEvent.status).toBe(OperationStatus.InProgress);
             expect(firstProgressEvent.callbackContext).toHaveProperty('retry', 1);
+            expect(firstProgressEvent.callbackDelaySeconds).toBeGreaterThanOrEqual(0);
 
             let callbackContext = firstProgressEvent.callbackContext;
 
             for (let i = 0; i < retries; i++) {
                 retrySetup();
-                let intermediateProgressEvent = await handleFunctionName(session, request, callbackContext, logger,typeConfiguration);
+                let intermediateProgressEvent = await handleFunctionName(session, request, callbackContext, logger, typeConfiguration);
                 expect(intermediateProgressEvent.status).toBe(OperationStatus.InProgress);
                 expect(intermediateProgressEvent.callbackContext).toHaveProperty('retry', i + 2);
+                expect(intermediateProgressEvent.callbackDelaySeconds).toBeGreaterThanOrEqual(0);
                 callbackContext = intermediateProgressEvent.callbackContext;
             }
 
             lastSetup();
-            let lastProgressEvent = await handleFunctionName(session, request, firstProgressEvent.callbackContext, logger,typeConfiguration);
+            let lastProgressEvent = await handleFunctionName(session, request, firstProgressEvent.callbackContext, logger, typeConfiguration);
             expect(lastProgressEvent.status).toBe(OperationStatus.Success);
             expect(lastProgressEvent.callbackContext).toBeUndefined();
+            expect(lastProgressEvent.callbackDelaySeconds).toBeGreaterThanOrEqual(0);
         }
 
         it.each([
