@@ -79,7 +79,7 @@ export abstract class AbstractRollbarResource<ResourceModelType extends BaseMode
     // saying to try again later. So that's what we are doing here by replaying the same event and callback context that
     // we got this time around.
     checkForTransientError(e: Error, request: ResourceHandlerRequest<ResourceModelType>, callbackContext: RetryableCallbackContext) {
-        if (e instanceof ServiceInternalError && e.message.match(/please try again/i)) {
+        if (e instanceof ServiceInternalError && e.message.match(/please try again/ig)) {
             const maxDelay = Math.pow(2, callbackContext.retry || 1) * Math.random();
             return ProgressEvent.builder<ProgressEvent<ResourceModelType, RetryableCallbackContext>>()
                 .status(OperationStatus.InProgress)

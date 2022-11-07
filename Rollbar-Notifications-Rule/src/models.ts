@@ -12,6 +12,8 @@ export class ResourceModel extends BaseModel {
     protected readonly IDENTIFIER_KEY_ID: string = '/properties/Id';
     @Exclude()
     protected readonly IDENTIFIER_KEY_RULETYPE: string = '/properties/RuleType';
+    @Exclude()
+    protected readonly IDENTIFIER_KEY_PROJECTACCESSTOKEN: string = '/properties/ProjectAccessToken';
 
     @Expose({ name: 'ProjectAccessToken' })
     @Transform(
@@ -78,29 +80,23 @@ export class ResourceModel extends BaseModel {
             identifier[this.IDENTIFIER_KEY_ID] = this.id;
         }
 
+        if (this.ruleType != null) {
+            identifier[this.IDENTIFIER_KEY_RULETYPE] = this.ruleType;
+        }
+
+        if (this.projectAccessToken != null) {
+            identifier[this.IDENTIFIER_KEY_PROJECTACCESSTOKEN] = this.projectAccessToken;
+        }
+
         // only return the identifier if it can be used, i.e. if all components are present
-        return Object.keys(identifier).length === 1 ? identifier : null;
+        return Object.keys(identifier).length === 3 ? identifier : null;
     }
 
     @Exclude()
     public getAdditionalIdentifiers(): Array<Dict> {
         const identifiers: Array<Dict> = new Array<Dict>();
-        if (this.getIdentifier_RuleType() != null) {
-            identifiers.push(this.getIdentifier_RuleType());
-        }
         // only return the identifiers if any can be used
         return identifiers.length === 0 ? null : identifiers;
-    }
-
-    @Exclude()
-    public getIdentifier_RuleType(): Dict {
-        const identifier: Dict = {};
-        if ((this as any).ruleType != null) {
-            identifier[this.IDENTIFIER_KEY_RULETYPE] = (this as any).ruleType;
-        }
-
-        // only return the identifier if it can be used, i.e. if all components are present
-        return Object.keys(identifier).length === 1 ? identifier : null;
     }
 }
 

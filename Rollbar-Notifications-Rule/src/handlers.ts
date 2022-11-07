@@ -19,7 +19,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     async get(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Rule> {
         const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule[] }>(
             'get',
-            `/api/1/notifications/${this.getRuleType(model)}/rule/${model.id}`);
+            `/api/1/notifications/${model.ruleType}/rule/${model.id}`);
 
         return response.data.result[0];
     }
@@ -27,9 +27,9 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     async list(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<ResourceModel[]> {
         const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule[] }>(
             'get',
-            `/api/1/notifications/${this.getRuleType(model)}/rules`);
+            `/api/1/notifications/${model.ruleType}/rules`);
 
-        return response.data.result.map(project => this.setModelFrom(new ResourceModel(), project));
+        return response.data.result.map(project => this.setModelFrom(model, project));
     }
 
     async create(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Rule> {
@@ -63,6 +63,10 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
 
     setModelFrom(model: ResourceModel, from?: Rule): ResourceModel {
         if (!from) {
+            delete model.slack;
+            delete model.email;
+            delete model.pagerDuty;
+            delete model.webhook;
             this.validateModel(model);
             return model;
         }
@@ -79,8 +83,12 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
             id: from.id,
             trigger: from.trigger,
             action: from.action,
-            ruleType
+            ruleType: ruleType
         });
+        delete resourceModel.slack;
+        delete resourceModel.email;
+        delete resourceModel.pagerDuty;
+        delete resourceModel.webhook;
         this.validateModel(resourceModel);
 
         return resourceModel;
@@ -104,6 +112,10 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     }
 
     private getRuleType(model: ResourceModel) {
+        if (model.ruleType) {
+            return model.ruleType;
+        }
+
         this.assertModel(model);
 
         if (model.slack) {
@@ -123,19 +135,19 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
 
     private getPayload(model: ResourceModel) {
         switch (this.getRuleType(model)) {
-            case "slack":
+            case 'slack':
                 return Transformer.for(model.slack.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform();
-            case "pagerduty":
+            case 'pagerduty':
                 return Transformer.for(model.pagerDuty.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform();
-            case "email":
+            case 'email':
                 return Transformer.for(model.email.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform();
-            case "webhook":
+            case 'webhook':
                 return Transformer.for(model.webhook.toJSON())
                     .transformKeys(CaseTransformer.PASCAL_TO_SNAKE)
                     .transform();
