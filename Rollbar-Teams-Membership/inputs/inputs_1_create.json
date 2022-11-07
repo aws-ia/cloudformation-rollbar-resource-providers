@@ -1,0 +1,5 @@
+{
+  "TeamId": <ROLLBAR_TEAM_ID>,
+  "MemberId": <ROLLBAR_PROJECT_ID>,
+  "MemberType": "project"
+}
