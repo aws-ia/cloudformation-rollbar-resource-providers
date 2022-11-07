@@ -1,0 +1,10 @@
+{
+  "PagerDuty": {
+    "Enabled": true,
+    "ServiceKey": "yckkfseezrrkpvdefmkxuxwzrqxnrmsm"
+  },
+  "Email": {
+    "Enabled": true,
+    "IncludeRequestParams": true
+  }
+}
