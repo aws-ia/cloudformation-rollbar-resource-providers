@@ -1,8 +1,11 @@
 import {AbstractRollbarResource} from "./abstract-rollbar-resource";
-import {BaseModel, ResourceHandlerRequest} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
+import {
+    BaseModel,
+    exceptions,
+    ResourceHandlerRequest
+} from "@amazon-web-services-cloudformation/cloudformation-cli-typescript-lib";
 import {
     AccessDenied,
-    InternalFailure,
     InvalidCredentials,
     InvalidRequest,
     NotFound,
@@ -43,24 +46,24 @@ class TestAbstractResource extends AbstractRollbarResource<BaseModel, {}, {}, {}
 }
 
 describe('AbstractRollbarResource', () => {
+    let testInstance: TestAbstractResource;
+
+    beforeAll(() => {
+        testInstance = new TestAbstractResource('foo', BaseModel, undefined, undefined, BaseModel);
+    });
+
     describe('processRequestException', () => {
-        let testInstance: TestAbstractResource;
-
-        beforeAll(() => {
-            testInstance = new TestAbstractResource('foo', BaseModel, undefined, undefined, BaseModel);
-        });
-
         it.each([
             [InvalidRequest, '400'],
             [InvalidCredentials, '401'],
             [AccessDenied, '403'],
             [NotFound, '404'],
-            [ServiceInternalError, '413'],
-            [ServiceInternalError, '422'],
+            [InvalidRequest, '413'],
+            [InvalidRequest, '422'],
             [ServiceLimitExceeded, '429'],
-            [InternalFailure, '500'],
-            [InternalFailure, null],
-            [InternalFailure, undefined]
+            [ServiceInternalError, '500'],
+            [ServiceInternalError, null],
+            [ServiceInternalError, undefined]
         ])('throws a %p if the request has a HTTP %s status code', (errorType, statusCode) => {
             const error = 'Forced error';
             let axiosError = new AxiosError<ApiError>(error);
@@ -73,11 +76,53 @@ describe('AbstractRollbarResource', () => {
                 expect(e).toBeInstanceOf(errorType);
                 if (e instanceof NotFound) {
                     expect(e.message).not.toContain(error);
-                } else if (e instanceof InternalFailure) {
-                    expect(e.message).toContain(`Unexpected error occurred, see serialized exception below:\n${error}`);
+                } else if (e instanceof ServiceInternalError) {
+                    expect(e.message).toContain(`Unexpected error occurred:\n${error}`);
                 } else {
                     expect(e.message).toContain(error);
                 }
+            }
+        });
+    });
+
+    describe('checkForTransientError', () => {
+        it.each([
+            [new exceptions.InvalidRequest(), false],
+            [new exceptions.InvalidRequest('Invalid request. Please try again.'), false],
+            [new exceptions.InvalidCredentials(), false],
+            [new exceptions.InvalidCredentials('Invalid credentials. Please try again.'), false],
+            [new exceptions.InternalFailure(), false],
+            [new exceptions.InternalFailure('Internal failure. Please try again.'), false],
+            [new exceptions.GeneralServiceException(), false],
+            [new exceptions.GeneralServiceException('General service issue. Please try again.'), false],
+            [new exceptions.ServiceInternalError(), false],
+            [new exceptions.ServiceInternalError('Service issue. Please try again.'), true],
+            [new exceptions.ServiceInternalError('The service encountered an issue, please try again later.'), true]
+        ])('throws a %p if the request has a HTTP %s status code', (error: Error, shouldReplay: boolean) => {
+            const resourceModel = {
+                foo: 'bar'
+            };
+            const request = new ResourceHandlerRequest({
+                desiredResourceState: resourceModel
+            });
+            const callbackContext = {
+                retry: 10
+            }
+
+            try {
+                const progressEvent = testInstance.checkForTransientError(error, request, callbackContext);
+                if (!shouldReplay) {
+                    fail('This should have thrown');
+                }
+                expect(progressEvent).not.toBeUndefined();
+                expect(progressEvent.resourceModel).toBe(resourceModel);
+                expect(progressEvent.callbackContext).toBe(callbackContext);
+                expect(progressEvent.callbackDelaySeconds).toBeGreaterThanOrEqual(0);
+            } catch (e) {
+                if (shouldReplay) {
+                    fail('This should have not thrown, but return a progress event');
+                }
+                expect(e).toBe(error);
             }
         });
     });
