@@ -1,7 +1,8 @@
 {
   "typeName": "Rollbar::Projects::AccessToken",
   "description": "Manage an access token for a Rollbar project.",
-  "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "sourceUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers.git",
+  "documentationUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers",
   "definitions": {
     "RollbarAccess": {
       "description": "Properties needed to access Rollbar.",

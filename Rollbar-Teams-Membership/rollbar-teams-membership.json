@@ -1,7 +1,8 @@
 {
   "typeName": "Rollbar::Teams::Membership",
   "description": "Manage a team membership for a user or project on Rollbar.",
-  "sourceUrl": "https://docs.rollbar.com/reference/list-a-teams-users",
+  "sourceUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers.git",
+  "documentationUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers",
   "definitions": {
     "RollbarAccess": {
       "description": "Properties needed to access Rollbar.",
