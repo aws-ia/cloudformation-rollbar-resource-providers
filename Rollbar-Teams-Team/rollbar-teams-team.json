@@ -1,7 +1,8 @@
 {
   "typeName": "Rollbar::Teams::Team",
   "description": "Manage a team on Rollbar.",
-  "sourceUrl": "https://docs.rollbar.com/reference/create-a-team",
+  "sourceUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers.git",
+  "documentationUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers",
   "definitions": {
     "RollbarAccess": {
       "description": "Properties needed to access Rollbar.",

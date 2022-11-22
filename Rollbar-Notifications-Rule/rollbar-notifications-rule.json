@@ -1,7 +1,8 @@
 {
   "typeName": "Rollbar::Notifications::Rule",
   "description": "Manage a notification rule for Rollbar.",
-  "sourceUrl": "https://explorer.docs.rollbar.com/#tag/Slack-Notification-Rules",
+  "sourceUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers.git",
+  "documentationUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers",
   "definitions": {
     "ProjectAccessToken": {
       "description": "Use a Project Access Token with 'write' scope. This determines onto to which project the rule will be created",
