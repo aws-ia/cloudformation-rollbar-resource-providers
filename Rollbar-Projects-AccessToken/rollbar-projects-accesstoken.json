@@ -99,6 +99,7 @@
     "/properties/Status"
   ],
   "primaryIdentifier": [
+    "/properties/ProjectId",
     "/properties/AccessToken"
   ],
   "handlers": {

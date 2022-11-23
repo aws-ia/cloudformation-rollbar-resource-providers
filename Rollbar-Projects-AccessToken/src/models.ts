@@ -9,6 +9,8 @@ export class ResourceModel extends BaseModel {
     public static readonly TYPE_NAME: string = 'Rollbar::Projects::AccessToken';
 
     @Exclude()
+    protected readonly IDENTIFIER_KEY_PROJECTID: string = '/properties/ProjectId';
+    @Exclude()
     protected readonly IDENTIFIER_KEY_ACCESSTOKEN: string = '/properties/AccessToken';
 
     @Expose({ name: 'ProjectId' })
@@ -78,12 +80,16 @@ export class ResourceModel extends BaseModel {
     @Exclude()
     public getPrimaryIdentifier(): Dict {
         const identifier: Dict = {};
+        if (this.projectId != null) {
+            identifier[this.IDENTIFIER_KEY_PROJECTID] = this.projectId;
+        }
+
         if (this.accessToken != null) {
             identifier[this.IDENTIFIER_KEY_ACCESSTOKEN] = this.accessToken;
         }
 
         // only return the identifier if it can be used, i.e. if all components are present
-        return Object.keys(identifier).length === 1 ? identifier : null;
+        return Object.keys(identifier).length === 2 ? identifier : null;
     }
 
     @Exclude()
