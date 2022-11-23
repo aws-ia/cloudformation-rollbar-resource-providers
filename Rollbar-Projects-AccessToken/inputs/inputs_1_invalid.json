@@ -1,0 +1,10 @@
+{
+  "ProjectId": 1111111111,
+  "Name": "CTv2 token",
+  "Scopes": [
+    "write",
+    "read"
+  ],
+  "RateLimitWindowSize": 60,
+  "RateLimitWindowCount": 10
+}

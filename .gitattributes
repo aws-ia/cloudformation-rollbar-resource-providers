@@ -1,1 +1,2 @@
 */overrides.json filter=rollbar
+**/inputs/*.json filter=rollbar

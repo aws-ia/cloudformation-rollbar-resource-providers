@@ -1,0 +1,7 @@
+{
+  "Name": "CTv2-Project",
+  "Email": {
+    "Enabled": true,
+    "IncludeRequestParams": false
+  }
+}

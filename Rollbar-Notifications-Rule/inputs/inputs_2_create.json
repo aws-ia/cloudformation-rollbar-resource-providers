@@ -1,0 +1,18 @@
+{
+  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
+  "Email": {
+    "Trigger": "new_item",
+    "Filters": [
+      {
+        "Type": "environment",
+        "Operation": "eq",
+        "Value": "production"
+      },
+      {
+        "Type": "level",
+        "Operation": "gte",
+        "Value": "error"
+      }
+    ]
+  }
+}

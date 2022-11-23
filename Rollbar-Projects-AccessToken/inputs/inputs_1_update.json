@@ -1,0 +1,10 @@
+{
+  "ProjectId": <ROLLBAR_PROJECT_ID>,
+  "Name": "CTv2 token",
+  "Scopes": [
+    "write",
+    "read"
+  ],
+  "RateLimitWindowSize": 180,
+  "RateLimitWindowCount": 20
+}

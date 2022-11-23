@@ -1,0 +1,11 @@
+{
+  "Name": "CTv2-Project",
+  "Email": {
+    "Enabled": true,
+    "IncludeRequestParams": false
+  },
+  "PagerDuty": {
+    "Enabled": true,
+    "ServiceKey": "yckkfseezrrkpvdefmkxuxwzrqxnrmsm"
+  }
+}

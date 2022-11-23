@@ -709,6 +709,15 @@
   "required": [
     "ProjectAccessToken"
   ],
+  "createOnlyProperties": [
+    "/properties/ProjectAccessToken"
+  ],
+  "writeOnlyProperties": [
+    "/properties/Slack",
+    "/properties/PagerDuty",
+    "/properties/Email",
+    "/properties/Webhook"
+  ],
   "readOnlyProperties": [
     "/properties/Id",
     "/properties/Trigger",
@@ -716,12 +725,9 @@
     "/properties/RuleType"
   ],
   "primaryIdentifier": [
-    "/properties/Id"
-  ],
-  "additionalIdentifiers": [
-    [
-      "/properties/RuleType"
-    ]
+    "/properties/Id",
+    "/properties/RuleType",
+    "/properties/ProjectAccessToken"
   ],
   "handlers": {
     "create": {
