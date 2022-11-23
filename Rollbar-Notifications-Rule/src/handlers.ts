@@ -17,11 +17,11 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     async get(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Rule> {
-        const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule[] }>(
+        const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule }>(
             'get',
             `/api/1/notifications/${model.ruleType}/rule/${model.id}`);
 
-        return response.data.result[0];
+        return response.data.result;
     }
 
     async list(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<ResourceModel[]> {
