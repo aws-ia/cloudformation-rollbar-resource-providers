@@ -1,0 +1,11 @@
+Resources:
+  RollbarProductionApp:
+    Type: Rollbar::Projects::Project
+    Properties:
+      Name: MySampleProject
+      Email:
+        Enabled: true
+        IncludeRequestParams: true
+      PagerDuty:
+        Enabled: true
+        ServiceKey: MzUwNDE0M3xBUE18QVBQTElDQVRJT058NDE5OTY3OTEw
