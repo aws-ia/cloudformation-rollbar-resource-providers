@@ -1,4 +1,4 @@
-# Rollbar CloudFormation Resource Types 
+# Rollbar CloudFormation Resource Types
 
 This collection of [AWS CloudFormation resource types][1] allow Rollbar to be controlled using [AWS CloudFormation][2].
 
