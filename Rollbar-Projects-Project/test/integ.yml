@@ -8,4 +8,4 @@ Resources:
         IncludeRequestParams: true
       PagerDuty:
         Enabled: true
-        ServiceKey: MzUwNDE0M3xBUE18QVBQTElDQVRJT058NDE5OTY3OTEw
+        ServiceKey: yckkfseezrrkpvdefmkxuxwzrqxnrmsm
