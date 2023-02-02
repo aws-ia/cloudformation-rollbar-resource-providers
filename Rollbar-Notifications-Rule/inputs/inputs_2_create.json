@@ -1,5 +1,5 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
+  "ProjectAccessToken": "",
   "Email": {
     "Trigger": "new_item",
     "Filters": [

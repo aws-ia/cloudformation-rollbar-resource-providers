@@ -1,5 +1,5 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
+  "ProjectAccessToken": "",
   "Slack": {
     "Trigger": "new_item",
     "Filters": [
