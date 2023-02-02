@@ -1,0 +1,28 @@
+{
+  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
+  "Webhook": {
+    "Trigger": "occurrence",
+    "Filters": [
+      {
+        "Type": "environment",
+        "Operation": "eq",
+        "Value": "production"
+      },
+      {
+        "Type": "level",
+        "Operation": "gte",
+        "Value": "error"
+      },
+      {
+        "Type": "environment",
+        "Operation": "neq",
+        "Value": "dev"
+      },
+      {
+        "Type": "environment",
+        "Operation": "neq",
+        "Value": "staging"
+      }
+    ]
+  }
+}
