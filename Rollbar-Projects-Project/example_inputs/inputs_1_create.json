@@ -3,9 +3,5 @@
   "Email": {
     "Enabled": true,
     "IncludeRequestParams": false
-  },
-  "PagerDuty": {
-    "Enabled": true,
-    "ServiceKey": "PAGER_DUTY_SERVICEKEY"
   }
 }
