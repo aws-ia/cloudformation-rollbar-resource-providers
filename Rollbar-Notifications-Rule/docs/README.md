@@ -12,7 +12,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 {
     "Type" : "Rollbar::Notifications::Rule",
     "Properties" : {
-        "<a href="#projectaccesstoken" title="ProjectAccessToken">ProjectAccessToken</a>" : <i>String</i>,
         "<a href="#slack" title="Slack">Slack</a>" : <i><a href="slackrule.md">SlackRule</a></i>,
         "<a href="#pagerduty" title="PagerDuty">PagerDuty</a>" : <i><a href="pagerdutyrule.md">PagerDutyRule</a></i>,
         "<a href="#email" title="Email">Email</a>" : <i><a href="emailrule.md">EmailRule</a></i>,
@@ -26,7 +25,6 @@ To declare this entity in your AWS CloudFormation template, use the following sy
 <pre>
 Type: Rollbar::Notifications::Rule
 Properties:
-    <a href="#projectaccesstoken" title="ProjectAccessToken">ProjectAccessToken</a>: <i>String</i>
     <a href="#slack" title="Slack">Slack</a>: <i><a href="slackrule.md">SlackRule</a></i>
     <a href="#pagerduty" title="PagerDuty">PagerDuty</a>: <i><a href="pagerdutyrule.md">PagerDutyRule</a></i>
     <a href="#email" title="Email">Email</a>: <i><a href="emailrule.md">EmailRule</a></i>
@@ -34,16 +32,6 @@ Properties:
 </pre>
 
 ## Properties
-
-#### ProjectAccessToken
-
-Use a Project Access Token with 'write' scope. This determines onto to which project the rule will be created
-
-_Required_: Yes
-
-_Type_: String
-
-_Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-replacement)
 
 #### Slack
 
