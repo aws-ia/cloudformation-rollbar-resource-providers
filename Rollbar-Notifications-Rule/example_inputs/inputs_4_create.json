@@ -1,5 +1,5 @@
 {
-  "ProjectAccessToken": "485ce5e054c74204ac20991c3d01ce13",
+  "ProjectAccessToken": "ROLLBAR_PROJECT_TOKEN_INPUT",
   "Webhook": {
     "Trigger": "new_item",
     "Filters": [
