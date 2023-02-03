@@ -1,0 +1,11 @@
+Resources:
+  MySampleProjectAccessToken:
+    Type: Rollbar::Projects::AccessToken
+    Properties:
+      ProjectId: 123456
+      Name: Sample Access token
+      Scopes:
+        - write
+        - read
+      RateLimitWindowSize: 60
+      RateLimitWindowCount: 10
