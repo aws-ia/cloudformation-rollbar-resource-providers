@@ -1,5 +1,5 @@
 {
-  "ProjectAccessToken": "71eefb3105744a94b76213acd7d3d5cf",
+  "ProjectAccessToken": "",
   "PagerDuty": {
     "Trigger": "reactivated_item",
     "Filters": [

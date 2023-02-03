@@ -8,4 +8,4 @@ Resources:
         IncludeRequestParams: true
       PagerDuty:
         Enabled: true
-        ServiceKey: 
+        ServiceKey: PAGER_DUTY_SERVICEKEY
