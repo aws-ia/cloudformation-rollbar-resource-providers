@@ -2,7 +2,7 @@ Resources:
   RollbarProductionApp:
     Type: Rollbar::Notifications::Rule
     Properties:
-      ProjectAccessToken: ROLLBAR_PROJECT_TOKEN_INPUT
+      ProjectAccessToken: 7160f33e544d46d8a9222e589d565023
       Email:
         Trigger: exp_repeat_item
         Filters:

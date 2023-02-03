@@ -1,5 +1,5 @@
 {
-  "ProjectAccessToken": "",
+  "ProjectAccessToken": "7160f33e544d46d8a9222e589d565023",
   "Slack": {
     "Trigger": "new_item",
     "Filters": [
