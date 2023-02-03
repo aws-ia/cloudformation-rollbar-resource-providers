@@ -17,7 +17,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     private userAgent = `AWS CloudFormation (+https://aws.amazon.com/cloudformation/) CloudFormation resource ${this.typeName}/${version}`;
 
     async get(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Rule> {
-        const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule }>(
+        const response = await new RollbarClient(typeConfiguration.rollbarAccess.projectToken, this.userAgent).doRequest<{ result: Rule }>(
             'get',
             `/api/1/notifications/${model.ruleType}/rule/${model.id}`);
 
@@ -25,7 +25,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     }
 
     async list(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<ResourceModel[]> {
-        const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule[] }>(
+        const response = await new RollbarClient(typeConfiguration.rollbarAccess.projectToken, this.userAgent).doRequest<{ result: Rule[] }>(
             'get',
             `/api/1/notifications/${model.ruleType}/rules`);
 
@@ -33,7 +33,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     }
 
     async create(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<Rule> {
-        const response = await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule[] }>(
+        const response = await new RollbarClient(typeConfiguration.rollbarAccess.projectToken, this.userAgent).doRequest<{ result: Rule[] }>(
             'post',
             `/api/1/notifications/${this.getRuleType(model)}/rules`,
             {},
@@ -44,7 +44,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     }
 
     async update(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<void> {
-        await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest<{ result: Rule }>(
+        await new RollbarClient(typeConfiguration.rollbarAccess.projectToken, this.userAgent).doRequest<{ result: Rule }>(
             'put',
             `/api/1/notifications/${this.getRuleType(model)}/rule/${model.id}`,
             {},
@@ -52,7 +52,7 @@ class Resource extends AbstractRollbarResource<ResourceModel, Rule, Rule, void, 
     }
 
     async delete(model: ResourceModel, typeConfiguration?: TypeConfigurationModel): Promise<void> {
-        await new RollbarClient(model.projectAccessToken, this.userAgent).doRequest(
+        await new RollbarClient(typeConfiguration.rollbarAccess.projectToken, this.userAgent).doRequest(
             'delete',
             `/api/1/notifications/${this.getRuleType(model)}/rule/${model.id}`);
     }

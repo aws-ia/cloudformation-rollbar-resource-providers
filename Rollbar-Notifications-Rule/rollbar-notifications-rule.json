@@ -3,10 +3,36 @@
   "description": "Manage a notification rule for Rollbar.",
   "sourceUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers.git",
   "documentationUrl": "https://github.com/aws-ia/cloudformation-rollbar-resource-providers",
+  "typeConfiguration": {
+    "properties": {
+      "RollbarAccess": {
+        "$ref": "#/definitions/RollbarAccess"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "RollbarAccess"
+    ]
+  },
   "definitions": {
-    "ProjectAccessToken": {
-      "description": "Use a Project Access Token with 'write' scope. This determines onto to which project the rule will be created",
-      "type": "string"
+    "RollbarAccess": {
+      "description": "Properties needed to access Rollbar.",
+      "type": "object",
+      "properties": {
+        "Token": {
+          "type": "string",
+          "description": "API token used to access Rollbar"
+        },
+        "ProjectToken": {
+          "type": "string",
+          "description": "API token used to access Rollbar"
+        }
+      },
+      "required": [
+        "Token",
+        "ProjectToken"
+      ],
+      "additionalProperties": false
     },
     "SlackTrigger": {
       "description": "An error/ message is seen for the first time.",
@@ -670,9 +696,6 @@
     }
   },
   "properties": {
-    "ProjectAccessToken": {
-      "$ref": "#/definitions/ProjectAccessToken"
-    },
     "Slack": {
       "$ref": "#/definitions/SlackRule"
     },
@@ -706,12 +729,6 @@
   "tagging": {
     "taggable": false
   },
-  "required": [
-    "ProjectAccessToken"
-  ],
-  "createOnlyProperties": [
-    "/properties/ProjectAccessToken"
-  ],
   "writeOnlyProperties": [
     "/properties/Slack",
     "/properties/PagerDuty",
@@ -726,8 +743,7 @@
   ],
   "primaryIdentifier": [
     "/properties/Id",
-    "/properties/RuleType",
-    "/properties/ProjectAccessToken"
+    "/properties/RuleType"
   ],
   "handlers": {
     "create": {
