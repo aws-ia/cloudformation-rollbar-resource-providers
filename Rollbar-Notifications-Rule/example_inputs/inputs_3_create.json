@@ -1,5 +1,5 @@
 {
-  "ProjectAccessToken": "71eefb3105744a94b76213acd7d3d5cf",
+  "ProjectAccessToken": "485ce5e054c74204ac20991c3d01ce13",
   "PagerDuty": {
     "Trigger": "new_item",
     "Filters": [
