@@ -11,6 +11,10 @@
         "Token": {
           "type": "string",
           "description": "API token used to access Rollbar"
+        },
+        "ProjectToken": {
+          "type": "string",
+          "description": "API token used to access Rollbar"
         }
       },
       "required": [
