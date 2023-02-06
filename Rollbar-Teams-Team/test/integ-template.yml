@@ -1,0 +1,6 @@
+Resources:
+  MySampleTeam:
+    Type: Rollbar::Teams::Team
+    Properties:
+      Name: Sample Team
+      AccessLevel: standard

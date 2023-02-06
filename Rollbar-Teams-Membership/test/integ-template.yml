@@ -1,0 +1,12 @@
+Resources:
+  MySampleTeam:
+    Type: Rollbar::Teams::Team
+    Properties:
+      Name: Sample Team
+      AccessLevel: standard
+  MySampleTeamMembership:
+    Type: Rollbar::Teams::Membership
+    Properties:
+      TeamId: !GetAtt MySampleTeam.Id
+      MemberId: ROLLBAR_TEAMSMEMBERSHIP_MEMBER_ID
+      MemberType: project
