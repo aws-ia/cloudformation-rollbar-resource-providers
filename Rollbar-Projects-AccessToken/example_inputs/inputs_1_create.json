@@ -1,5 +1,5 @@
 {
-  "ProjectId": 596926,
+  "ProjectId": ACCESSTOKEN_PROJECT_ID,
   "Name": "CTv2 token",
   "Scopes": [
     "write",

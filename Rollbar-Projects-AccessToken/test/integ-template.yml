@@ -2,7 +2,7 @@ Resources:
   MySampleProjectAccessToken:
     Type: Rollbar::Projects::AccessToken
     Properties:
-      ProjectId: 596926
+      ProjectId: ACCESSTOKEN_PROJECT_ID
       Name: Sample Access token
       Scopes:
         - write
