@@ -2,7 +2,7 @@ Resources:
   MySampleTeam:
     Type: Rollbar::Teams::Team
     Properties:
-      Name: Sample Team
+      Name: SampleTeamIntegTemplate
       AccessLevel: standard
   MySampleTeamMembership:
     Type: Rollbar::Teams::Membership
