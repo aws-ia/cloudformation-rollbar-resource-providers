@@ -1,12 +1,7 @@
 Resources:
-  MySampleTeam:
-    Type: Rollbar::Teams::Team
-    Properties:
-      Name: SampleTeamIntegTemplate
-      AccessLevel: standard
   MySampleTeamMembership:
     Type: Rollbar::Teams::Membership
     Properties:
-      TeamId: !GetAtt MySampleTeam.Id
+      TeamId: ROLLBAR_TEAMSMEMBERSHIP_TEAM_ID
       MemberId: ROLLBAR_TEAMSMEMBERSHIP_MEMBER_ID
       MemberType: project
