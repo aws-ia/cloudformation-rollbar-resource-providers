@@ -1,7 +1,6 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
-  "Slack": {
-    "Trigger": "occurrence",
+  "PagerDuty": {
+    "Trigger": "reactivated_item",
     "Filters": [
       {
         "Type": "environment",

@@ -12,18 +12,7 @@ export class ResourceModel extends BaseModel {
     protected readonly IDENTIFIER_KEY_ID: string = '/properties/Id';
     @Exclude()
     protected readonly IDENTIFIER_KEY_RULETYPE: string = '/properties/RuleType';
-    @Exclude()
-    protected readonly IDENTIFIER_KEY_PROJECTACCESSTOKEN: string = '/properties/ProjectAccessToken';
 
-    @Expose({ name: 'ProjectAccessToken' })
-    @Transform(
-        (value: any, obj: any) =>
-            transformValue(String, 'projectAccessToken', value, obj, []),
-        {
-            toClassOnly: true,
-        }
-    )
-    projectAccessToken?: Optional<string>;
     @Expose({ name: 'Slack' })
     @Type(() => SlackRule)
     slack?: Optional<SlackRule>;
@@ -84,12 +73,8 @@ export class ResourceModel extends BaseModel {
             identifier[this.IDENTIFIER_KEY_RULETYPE] = this.ruleType;
         }
 
-        if (this.projectAccessToken != null) {
-            identifier[this.IDENTIFIER_KEY_PROJECTACCESSTOKEN] = this.projectAccessToken;
-        }
-
         // only return the identifier if it can be used, i.e. if all components are present
-        return Object.keys(identifier).length === 3 ? identifier : null;
+        return Object.keys(identifier).length === 2 ? identifier : null;
     }
 
     @Exclude()
@@ -842,6 +827,34 @@ export class TypeConfigurationModel extends BaseModel {
     ['constructor']: typeof TypeConfigurationModel;
 
 
+    @Expose({ name: 'RollbarAccess' })
+    @Type(() => RollbarAccess)
+    rollbarAccess?: Optional<RollbarAccess>;
+
+}
+
+export class RollbarAccess extends BaseModel {
+    ['constructor']: typeof RollbarAccess;
+
+
+    @Expose({ name: 'Token' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'token', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    token?: Optional<string>;
+    @Expose({ name: 'ProjectToken' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'projectToken', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    projectToken?: Optional<string>;
 
 }
 

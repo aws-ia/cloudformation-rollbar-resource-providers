@@ -1,0 +1,10 @@
+Resources:
+  RollbarProductionApp:
+    Type: Rollbar::Notifications::Rule
+    Properties:
+      Email:
+        Trigger: exp_repeat_item
+        Filters:
+          - Type: level
+            Operation: gte
+            Value: error

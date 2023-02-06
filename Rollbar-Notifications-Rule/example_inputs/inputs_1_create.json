@@ -1,6 +1,5 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
-  "Webhook": {
+  "Slack": {
     "Trigger": "new_item",
     "Filters": [
       {

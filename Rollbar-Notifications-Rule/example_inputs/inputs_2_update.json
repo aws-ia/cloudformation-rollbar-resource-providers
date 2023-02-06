@@ -1,7 +1,6 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
-  "PagerDuty": {
-    "Trigger": "reactivated_item",
+  "Email": {
+    "Trigger": "occurrence",
     "Filters": [
       {
         "Type": "environment",

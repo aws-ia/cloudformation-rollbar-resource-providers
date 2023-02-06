@@ -1,5 +1,5 @@
 {
-  "ProjectId": <ROLLBAR_PROJECT_ID>,
+  "ProjectId": ACCESSTOKEN_PROJECT_ID,
   "Name": "CTv2 token",
   "Scopes": [
     "write",

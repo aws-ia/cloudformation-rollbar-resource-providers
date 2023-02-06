@@ -1,5 +1,4 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
   "PagerDuty": {
     "Trigger": "new_item",
     "Filters": [

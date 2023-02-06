@@ -220,6 +220,14 @@ export class RollbarAccess extends BaseModel {
         }
     )
     token?: Optional<string>;
-
+    @Expose({ name: 'ProjectToken' })
+    @Transform(
+        (value: any, obj: any) =>
+            transformValue(String, 'projectToken', value, obj, []),
+        {
+            toClassOnly: true,
+        }
+    )
+    projectToken?: Optional<string>;
 }
 

@@ -1,6 +1,5 @@
 {
-  "ProjectAccessToken": "<ROLLBAR_PROJECT_TOKEN>",
-  "Email": {
+  "Slack": {
     "Trigger": "occurrence",
     "Filters": [
       {
