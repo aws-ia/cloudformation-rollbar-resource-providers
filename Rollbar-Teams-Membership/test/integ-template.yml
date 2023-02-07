@@ -1,0 +1,7 @@
+Resources:
+  MySampleTeamMembership:
+    Type: Rollbar::Teams::Membership
+    Properties:
+      TeamId: ROLLBAR_TEAMSMEMBERSHIP_TEAM_ID
+      MemberId: ROLLBAR_TEAMSMEMBERSHIP_MEMBER_ID
+      MemberType: project
